@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Pluto_Entity_In_Action
 {
-    class Program
+    public enum CourseLevel : byte
     {
-        static void Main(string[] args)
-        {
-
-        }
+        beginner = 1,
+        Intermediate = 2,
+        Advanced = 3
     }
 }
