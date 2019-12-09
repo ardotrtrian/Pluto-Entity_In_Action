@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Pluto_Entity_In_Action.Models;
+using System;
+using System.Collections.Generic;
 
 namespace Pluto_Entity_In_Action
 {
@@ -11,5 +13,7 @@ namespace Pluto_Entity_In_Action
         public float FullPrice { get; set; }
         public Author Author { get; set; }
         public IList<Tag> Tags { get; set; }
+        public Category Category { get; set; }
+        public DateTime? DatePublished { get; set; }
     }
 }
