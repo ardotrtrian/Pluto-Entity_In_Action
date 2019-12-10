@@ -10,7 +10,7 @@ namespace Pluto_Entity_In_Action
     {
         static void Main(string[] args)
         {
-
+                
         }
     }
 }

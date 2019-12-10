@@ -89,6 +89,14 @@
     <Compile Include="Migrations\201912091349077_RenameTitleColumn.designer.cs">
       <DependentUpon>201912091349077_RenameTitleColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912100855115_MakeTitleAndDescriptionColumnsInCoursesTableRequired.cs" />
+    <Compile Include="Migrations\201912100855115_MakeTitleAndDescriptionColumnsInCoursesTableRequired.designer.cs">
+      <DependentUpon>201912100855115_MakeTitleAndDescriptionColumnsInCoursesTableRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912100909296_AddDataAnnotationsOnCoursesTable.cs" />
+    <Compile Include="Migrations\201912100909296_AddDataAnnotationsOnCoursesTable.designer.cs">
+      <DependentUpon>201912100909296_AddDataAnnotationsOnCoursesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Category.cs" />
@@ -130,6 +138,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912091349077_RenameTitleColumn.resx">
       <DependentUpon>201912091349077_RenameTitleColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912100855115_MakeTitleAndDescriptionColumnsInCoursesTableRequired.resx">
+      <DependentUpon>201912100855115_MakeTitleAndDescriptionColumnsInCoursesTableRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912100909296_AddDataAnnotationsOnCoursesTable.resx">
+      <DependentUpon>201912100909296_AddDataAnnotationsOnCoursesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
