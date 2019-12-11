@@ -196,8 +196,8 @@ namespace Pluto_Entity_In_Action
                 //IQueryable makes the queries extendable without executing them.
                 //the expressions we extend are stored in an expression object , and once we iterate or call a method, 
                 //the expression object is executed in the database.
-                IQueryable<Course> courses = db.Courses;
-                var filteredCourses = courses.Where(c => c.FullPrice < 100);
+                IQueryable<Course> coursesQ = db.Courses;
+                var filteredCourses = coursesQ.Where(c => c.FullPrice < 100);
                 //once we start itereating, the query that goes to db is select * where fullprice<100 (query with filter)
                 foreach (var item in filteredCourses)
                 {
@@ -208,7 +208,7 @@ namespace Pluto_Entity_In_Action
                 IEnumerable<Course> coursesEnumerable = db.Courses; 
                 //here is where query goes to db and brings all records then filters it..
                 //..here
-                var filteredCoursesEnumerable = courses.Where(c => c.FullPrice < 100);
+                var filteredCoursesEnumerable = coursesQ.Where(c => c.FullPrice < 100);
                 foreach (var item in filteredCoursesEnumerable)
                 {
                     Console.WriteLine(item.Title);
