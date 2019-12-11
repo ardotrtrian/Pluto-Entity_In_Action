@@ -10,7 +10,7 @@ namespace Pluto_Entity_In_Action
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Category { get; set; }
 
-        public PlutoContext() 
+        public PlutoContext()
             : base("name=DefaultConnection")
         {
 
@@ -32,7 +32,6 @@ namespace Pluto_Entity_In_Action
             //to configure ColumnName use .HasColumnName()
             //to configure type of column use .HasColumnType()
             //to change length of strinf use .HasMaxLength()
-
 
             /* One-To-Many relationship */
 
