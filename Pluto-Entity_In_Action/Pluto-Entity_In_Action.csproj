@@ -109,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="CheetSheets\LINQ-Cheat-Sheet-Extension-Methods %281%29.pdf" />
+    <None Include="CheetSheets\LINQ-Cheat-Sheet-Extension-Methods.pdf" />
+    <None Include="CheetSheets\LINQ-Cheat-Sheet.pdf" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

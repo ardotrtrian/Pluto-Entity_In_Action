@@ -49,9 +49,9 @@ namespace Pluto_Entity_In_Action
                              };
 
                 var quer3ext = db.Courses.
-                               OrderByDescending(c=>c.FullPrice).
-                               ThenBy(c=>c.Title).
-                               Select( c=> new 
+                               OrderByDescending(c => c.FullPrice).
+                               ThenBy(c => c.Title).
+                               Select(c => new
                                {
                                    Name = c.Title,
                                    Instructor = c.Author,
@@ -109,13 +109,13 @@ namespace Pluto_Entity_In_Action
                 //Joining//
                 //inner join
                 var coursesAndAuthors = from c in db.Courses
-                        join a in db.Authors
-                        on c.AuthorId equals a.Id
-                        select new
-                        {
-                            courseName = c.Title,
-                            authorName = a.Name
-                        };
+                                        join a in db.Authors
+                                        on c.AuthorId equals a.Id
+                                        select new
+                                        {
+                                            courseName = c.Title,
+                                            authorName = a.Name
+                                        };
 
                 var coursesAndAuthorsext = db.Courses.Join(
                                    db.Authors,
@@ -132,7 +132,7 @@ namespace Pluto_Entity_In_Action
                                             join c in db.Courses
                                             on a.Id equals c.AuthorId
                                             into g
-                                            select new 
+                                            select new
                                             {
                                                 AuthorName = a.Name,
                                                 Courses = g.Count()
@@ -146,8 +146,8 @@ namespace Pluto_Entity_In_Action
                                         db.Authors.GroupJoin(db.Courses,
                                         a => a.Id,
                                         c => c.AuthorId,
-                                        (author, courses) => new 
-                                        { 
+                                        (author, courses) => new
+                                        {
                                             authorName = author.Name,
                                             courseCount = courses.Count()
                                         });
@@ -175,7 +175,7 @@ namespace Pluto_Entity_In_Action
                 db.Courses.OrderBy(c => c.Level).First();
 
                 //order the course list by level, then return the first course which price is greater than 200
-                db.Courses.OrderBy(c => c.Level).FirstOrDefault(c=>c.FullPrice>200);
+                db.Courses.OrderBy(c => c.Level).FirstOrDefault(c => c.FullPrice > 200);
 
                 //Give me a course with id=1
                 db.Courses.SingleOrDefault(c => c.Id == 1);
@@ -189,7 +189,30 @@ namespace Pluto_Entity_In_Action
                 //Aggregate functions:
                 var countOfCourses = db.Courses.Count();
                 var max = db.Courses.Max(c => c.FullPrice);  //also there are min and average
-                var countCoursesInLevelOne = db.Courses.Count(c=>c.Level == CourseLevel.beginner);
+                var countCoursesInLevelOne = db.Courses.Count(c => c.Level == CourseLevel.beginner);
+
+                //IQueryable VS IEnumerable
+
+                //IQueryable makes the queries extendable without executing them.
+                //the expressions we extend are stored in an expression object , and once we iterate or call a method, 
+                //the expression object is executed in the database.
+                IQueryable<Course> courses = db.Courses;
+                var filteredCourses = courses.Where(c => c.FullPrice < 100);
+                //once we start itereating, the query that goes to db is select * where fullprice<100 (query with filter)
+                foreach (var item in filteredCourses)
+                {
+                    Console.WriteLine(item.Title);
+                }
+
+                //IEnumerable 
+                IEnumerable<Course> coursesEnumerable = db.Courses; 
+                //here is where query goes to db and brings all records then filters it..
+                //..here
+                var filteredCoursesEnumerable = courses.Where(c => c.FullPrice < 100);
+                foreach (var item in filteredCoursesEnumerable)
+                {
+                    Console.WriteLine(item.Title);
+                }
 
             }
         }
