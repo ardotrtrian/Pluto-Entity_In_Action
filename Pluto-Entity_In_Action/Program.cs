@@ -18,7 +18,6 @@ namespace Pluto_Entity_In_Action
                            orderby course.Title
                            select course.Title;
 
-
                 //Extension methods
                 var ext = db.Courses.Where(c => c.Title.Contains("C#")).OrderBy(c => c.Title);
 
@@ -167,10 +166,32 @@ namespace Pluto_Entity_In_Action
                 {
                     authorName = author.Author.Name,
                     courseName = course.Title
-                }); 
-            }
+                });
 
-            
+                //Partitioning
+                var page2 = db.Courses.Skip(10).Take(10);
+
+                //Element Operators
+                db.Courses.OrderBy(c => c.Level).First();
+
+                //order the course list by level, then return the first course which price is greater than 200
+                db.Courses.OrderBy(c => c.Level).FirstOrDefault(c=>c.FullPrice>200);
+
+                //Give me a course with id=1
+                db.Courses.SingleOrDefault(c => c.Id == 1);
+
+                //Are all courses fullprice more than 10 , return true if correct
+                var boolean = db.Courses.All(c => c.FullPrice > 10);
+
+                //are there any courses with level 1?
+                var LevelOneCourseExist = db.Courses.Any(c => c.Level == CourseLevel.beginner);
+
+                //Aggregate functions:
+                var countOfCourses = db.Courses.Count();
+                var max = db.Courses.Max(c => c.FullPrice);  //also there are min and average
+                var countCoursesInLevelOne = db.Courses.Count(c=>c.Level == CourseLevel.beginner);
+
+            }
         }
     }
 }
