@@ -37,6 +37,8 @@ namespace Pluto_Entity_In_Action
                              where c.Level == CourseLevel.Intermediate
                              select c;
 
+                var query2ext = db.Courses.Where(c => c.Level == CourseLevel.Intermediate);
+
                 //Ordering
                 var query3 = from c in db.Courses
                              orderby c.FullPrice descending, c.Title
@@ -47,9 +49,34 @@ namespace Pluto_Entity_In_Action
                                  Instructor = c.Author
                              };
 
+                var quer3ext = db.Courses.
+                               OrderByDescending(c=>c.FullPrice).
+                               ThenBy(c=>c.Title).
+                               Select( c=> new 
+                               {
+                                   Name = c.Title,
+                                   Instructor = c.Author,
+                                   Price = c.FullPrice
+                               });
+
+
+                Console.WriteLine();
+
+                //Set operations
+                var set = db.Courses.
+                          Where(c => c.Level == CourseLevel.Advanced).
+                          OrderByDescending(c => c.FullPrice).
+                          ThenBy(c => c.Title).
+                          SelectMany(c => c.Tags).
+                          Distinct();
+                foreach (var item in set)
+                {
+                    Console.WriteLine(item.Name);
+                }
                 Console.WriteLine();
 
                 //Grouping
+                //breaking down the courses into groups by level
                 var groupingQuery = from course in db.Courses
                                     group course by course.Level
                                     into groupsByLevel
@@ -58,6 +85,20 @@ namespace Pluto_Entity_In_Action
                 foreach (var group in groupingQuery)
                 {
                     Console.WriteLine($"Group Key: {group.Key} , contains {group.Count()} courses");
+
+                    foreach (var course in group)
+                    {
+                        Console.WriteLine(course.Title);
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("Group the courses by level using extension method");
+                var groupingByLevelext = db.Courses.GroupBy(c => c.Level);
+
+                foreach (var group in groupingByLevelext)
+                {
+                    Console.WriteLine($"{group.Key} : ");
 
                     foreach (var course in group)
                     {
@@ -76,6 +117,16 @@ namespace Pluto_Entity_In_Action
                             courseName = c.Title,
                             authorName = a.Name
                         };
+
+                var coursesAndAuthorsext = db.Courses.Join(
+                                   db.Authors,
+                                   c => c.AuthorId,
+                                   a => a.Id, (course, author) => new
+                                   {
+                                       CourseName = course.Title,
+                                       authorName = author.Name
+                                   });
+
                 //group join
                 //output the author name and number of courses he has
                 var authorAndTheirCourses = from a in db.Authors
@@ -92,6 +143,16 @@ namespace Pluto_Entity_In_Action
                     Console.WriteLine($"Author name: {record.AuthorName} , number of courses he has: {record.Courses}");
                 }
 
+                var authorAndTheirCoursesext =
+                                        db.Authors.GroupJoin(db.Courses,
+                                        a => a.Id,
+                                        c => c.AuthorId,
+                                        (author, courses) => new 
+                                        { 
+                                            authorName = author.Name,
+                                            courseCount = courses.Count()
+                                        });
+
                 //cross join
                 //show a combination of all authors and their courses
                 var allCoursesAndAllAuthors = from a in db.Authors
@@ -101,6 +162,12 @@ namespace Pluto_Entity_In_Action
                                                   AuthorName = a.Name,
                                                   CourseName = c.Title
                                               };
+
+                var allCoursesAndAllAuthorsext = db.Courses.SelectMany(a => db.Courses, (author, course) => new
+                {
+                    authorName = author.Author.Name,
+                    courseName = course.Title
+                }); 
             }
 
             
