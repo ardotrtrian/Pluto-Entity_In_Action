@@ -23,9 +23,9 @@ namespace Pluto_Entity_In_Action
 
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
-        public Author Author { get; set; }
+        public virtual Author Author { get; set; }   //virtual for lazy loading
 
-        public IList<Tag> Tags { get; set; }
+        public virtual IList<Tag> Tags { get; set; } //virtual for lazy loading
         public Category Category { get; set; }
         public DateTime? DatePublished { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -214,6 +215,49 @@ namespace Pluto_Entity_In_Action
                     Console.WriteLine(item.Title);
                 }
 
+
+                //-----------------------------------------------------------------------------------------
+                /*LOADING OBJECTS:*/
+
+                //lazy loading:
+                var courseWithIdTwo = db.Courses.Single(c => c.Id == 2);
+                //to enable lazy loading, must put the confurations to true in the dbContext constructor
+                //and make the tags/authors properties virtual
+
+
+                //N+1 Problem
+                //To get N entities and their related entities, we will end up with N+1 queries.
+                var allcoursesindb = db.Courses.ToList();
+                    
+                foreach (var course in allcoursesindb)
+                {
+                    Console.WriteLine($"{course.Title} , {course.Author.Name}");
+                }
+
+                //Eager Loading
+                var allcourseswithAuthors = db.Courses.Include(c => c.Author).ToList(); 
+                //the query which is executed in sql join the two tables
+                
+                foreach (var course in allcoursesindb)
+                {
+                    Console.WriteLine($"{course.Title} , {course.Author.Name}");
+                }
+
+                //Explicit loading
+                //instead of doing this:
+                var anAuthor = db.Authors.Include(a => a.Courses).Single(a => a.Id == 1);
+                foreach (var course in anAuthor.Courses)
+                {
+                    Console.WriteLine(course.Title);
+                }
+
+                //do this: after bringing the author, explicitly load teh author's courses
+                db.Courses.Where(c => c.AuthorId == anAuthor.Id).Load();
+
+                //here there are two queries executed in database: 
+                //first it brings the author.
+                //second one brings its courses
+                //for this case, its better to do two round trips to database, than performing a huge query.
             }
         }
     }

@@ -13,7 +13,7 @@ namespace Pluto_Entity_In_Action
         public PlutoContext()
             : base("name=DefaultConnection")
         {
-
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         //using Fluent API to change method calls 
