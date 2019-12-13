@@ -231,7 +231,7 @@ namespace Pluto_Entity_In_Action
                     
                 foreach (var course in allcoursesindb)
                 {
-                    Console.WriteLine($"{course.Title} , {course.Author.Name}");
+                    /*Console.WriteLine($"{course.Title} , {course.Author.Name}");*/
                 }
 
                 //Eager Loading
@@ -258,6 +258,34 @@ namespace Pluto_Entity_In_Action
                 //first it brings the author.
                 //second one brings its courses
                 //for this case, its better to do two round trips to database, than performing a huge query.
+
+                //-----------------------------------------------------------------------------------------
+                /* UPDARING DATA */
+
+                //adding data:
+                var newCourse = new Course
+                {
+                    Title = "New Course",
+                    Description = "Ddescription 2",
+                    AuthorId = 1,
+                    Level = CourseLevel.Advanced,
+                    FullPrice = 9.99f,
+                    CategoryId = 1,
+                };
+
+                /*db.Courses.Add(newCourse);*/
+                db.SaveChanges();
+
+                //updating data
+                var theCourseForEdit = db.Courses.Find(7);
+                theCourseForEdit.Title = "Edited";
+                db.SaveChanges();
+
+                //deleting data
+
+                //var deleteCourse = db.Courses.Find(8);
+                //db.Courses.Remove(deleteCourse);
+                //db.SaveChanges();
             }
         }
     }

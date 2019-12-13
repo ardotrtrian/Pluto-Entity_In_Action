@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201912100909296_AddDataAnnotationsOnCoursesTable.designer.cs">
       <DependentUpon>201912100909296_AddDataAnnotationsOnCoursesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912130743261_AddCategoryIdPropertyInCourseModel.cs" />
+    <Compile Include="Migrations\201912130743261_AddCategoryIdPropertyInCourseModel.designer.cs">
+      <DependentUpon>201912130743261_AddCategoryIdPropertyInCourseModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Category.cs" />
@@ -147,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912100909296_AddDataAnnotationsOnCoursesTable.resx">
       <DependentUpon>201912100909296_AddDataAnnotationsOnCoursesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912130743261_AddCategoryIdPropertyInCourseModel.resx">
+      <DependentUpon>201912130743261_AddCategoryIdPropertyInCourseModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

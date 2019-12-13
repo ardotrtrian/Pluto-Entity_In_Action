@@ -26,7 +26,12 @@ namespace Pluto_Entity_In_Action
         public virtual Author Author { get; set; }   //virtual for lazy loading
 
         public virtual IList<Tag> Tags { get; set; } //virtual for lazy loading
+
+
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
+
         public DateTime? DatePublished { get; set; }
     }
 }
